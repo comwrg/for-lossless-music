@@ -18,4 +18,9 @@ TODO
 - [ ] 可以根据QQ加密格式目录下载相同歌名
 - [ ] 可以自动根据歌手名分文件存储
 
+image
+-----
+搜索演示图
+
+.. image:: https://user-images.githubusercontent.com/19854253/46934154-4619e800-d089-11e8-81b1-ee8a7795684d.png
 
