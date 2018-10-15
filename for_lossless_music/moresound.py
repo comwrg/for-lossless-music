@@ -35,9 +35,10 @@ class Moresound:
 
         json = r.json()
 
+        id_base = num * (page-1) + 1
         res = []
         totalnum = json['totalnum']
-        for e in json['song_list']:
+        for id, e in enumerate(json['song_list']):
             songname = e['songname']
 
             # rm html tags
@@ -58,7 +59,7 @@ class Moresound:
             singer = [s['name'] for s in e['singer']]
             token = e['albummid']
 
-            res.append(Song(songname, singer, album, interval, tags, source, token))
+            res.append(Song(id_base+id, songname, singer, album, interval, tags, source, token))
 
         return totalnum, res
 

@@ -1,7 +1,8 @@
 from prettytable import PrettyTable
 
 class Song:
-    def __init__(self, name, singers, album, interval, tags, source, token):
+    def __init__(self, id, name, singers, album, interval, tags, source, token):
+        self.id = id
         self.name = name
         self.singers = singers
         self.album = album
@@ -17,8 +18,8 @@ def songs2table(songs):
     """
 
     t = PrettyTable(['ID', '歌名', '歌手', '专辑', '长度', '标签'])
-    for i, s in enumerate(songs):
-        t.add_row([i+1, s.name, ','.join(s.singers), s.album, s.interval, ','.join(s.tags)])
+    for s in songs:
+        t.add_row([s.id, s.name, ','.join(s.singers), s.album, s.interval, ','.join(s.tags)])
 
     return t
 
