@@ -54,10 +54,11 @@ class Moresound:
             songname = ls[0]
             tags = ls[1:-1]
             album = ls[-1]
+            interval = e['interval']
             singer = [s['name'] for s in e['singer']]
             token = e['albummid']
 
-            res.append(Song(songname, singer, album, tags, source, token))
+            res.append(Song(songname, singer, album, interval, tags, source, token))
 
         return totalnum, res
 
