@@ -8,8 +8,8 @@ class Song:
         self.tags = tags
 
 
-def print_table(songs):
-    """Print song table
+def songs2table(songs):
+    """return table what can print
     :param songs: list<Song>
     """
 
@@ -17,6 +17,6 @@ def print_table(songs):
     for i, s in enumerate(songs):
         t.add_row([i+1, s.name, ','.join(s.singers), s.album, ','.join(s.tags)])
 
-    print(t)
+    return t
 
 

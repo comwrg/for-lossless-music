@@ -41,4 +41,7 @@ if len(args.keyword) > 1:
     print("Too many keywords")
     sys.exit()
 
-flm.print_table(flm.Moresound.search(args.keyword[0], args.source, args.page, args.num))
+total, songs = flm.Moresound.search(args.keyword[0], args.source, args.page, args.num)
+table = flm.songs2table(songs)
+print('total', total)
+print(table)

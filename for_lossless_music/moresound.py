@@ -16,7 +16,7 @@ class Moresound:
     @staticmethod
     def search(keyword, source=Source.QQ, page=1, num=20):
         """Search song by keyword
-        :return: list<Song>
+        :return: totalnumber, list<Song>
         """
         if not source:
             source = Source.QQ
@@ -56,7 +56,7 @@ class Moresound:
 
             res.append(Song(songname, singer, album, tags))
 
-        return res
+        return totalnum, res
 
 
 
