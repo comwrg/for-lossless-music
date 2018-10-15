@@ -1,11 +1,13 @@
 from prettytable import PrettyTable
 
 class Song:
-    def __init__(self, name, singers, album, tags=[]):
+    def __init__(self, name, singers, album, tags, source, token):
         self.name = name
         self.singers = singers
         self.album = album
         self.tags = tags
+        self.source = source
+        self.token = token
 
 
 def songs2table(songs):
