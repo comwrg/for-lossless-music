@@ -1,6 +1,6 @@
 
 from .moresound import Moresound, Source, str2source
-from .song import songs2table
+from .song import songs2table, FoundSong, foundsong2table
 from .download import download
 
 __version__ = '0.0.1'
