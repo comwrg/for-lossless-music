@@ -1,5 +1,5 @@
 
-from .moresound import Moresound, Source
+from .moresound import Moresound, Source, str2source
 from .song import songs2table
 from .download import download
 

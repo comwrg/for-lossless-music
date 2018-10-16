@@ -17,7 +17,7 @@ parser.add_argument(
 
 search_grp = parser.add_argument_group('Search options')
 search_grp.add_argument(
-    '-s', '--source', metavar='source', default=None,
+    '-s', '--source', metavar='source', default=flm.Source.QQ,
     help='Which source you want to search. now support: qq(QQ), kw(酷我), default source is qq'
 )
 
@@ -54,13 +54,18 @@ if len(args.keyword) > 1:
     print("Too many keywords")
     sys.exit()
 
+source = flm.str2source(args.source)
+if not source:
+    print('Could not find source ' + args.source)
+    sys.exit()
+
 if args.download is -1:
-    total, songs = flm.Moresound.search(args.keyword[0], args.source, args.page, args.num)
+    total, songs = flm.Moresound.search(args.keyword[0], source, args.page, args.num)
     table = flm.songs2table(songs)
     print('total', total)
     print(table)
 else:
-    total, songs = flm.Moresound.search(args.keyword[0], args.source, args.download, 1)
+    total, songs = flm.Moresound.search(args.keyword[0], source, args.download, 1)
     if not len(songs):
         print('Could not find')
         sys.exit()

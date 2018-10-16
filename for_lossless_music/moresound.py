@@ -11,6 +11,14 @@ class Source(Enum):
     QQ   = 'qq'
     KUWO = 'kw'
 
+def str2source(s):
+    if isinstance(s, Source):
+        return s
+    for e in Source:
+        if e.value == s:
+            return e
+    return None
+
 headers={
     'cookie':
         'encrypt_ip_data=3d92d85fb0b1e96245bd395599e56e614fb95f6693875f1f2ad7bc746c35e96077ab21aa0a88025f6c73ca5c0ab1d2de0b994b5a468748ae75b5a7df7fac02c8e4689c564f4e841464e7ab551d765671581eec16697a0193d35dbf52fd4409b245dd3b56c2bfc4fe7d7332c48a379d36b42ee405134fce4ad51f5d46ce416768; '
