@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import os
 import sys
 import argparse
 import for_lossless_music as flm
@@ -43,6 +44,11 @@ download_grp.add_argument(
     help='output path'
 )
 
+download_grp.add_argument(
+    '-c', '--classify', action='store_true',
+    help='Classify by singer'
+)
+
 parser.add_argument('keyword', nargs='+', help=argparse.SUPPRESS)
 
 args = parser.parse_args()
@@ -75,10 +81,15 @@ else:
     if not best_quality:
         print('Could not find')
         sys.exit()
+    singer = '/'.join(songs[0].singers)
+    path = os.path.abspath(args.output)
+    if args.classify:
+        path += '/' + singer
+    os.makedirs(path, exist_ok=True)
     flm.download(urls[best_quality],
                  '{path}/{singer}-{songname}.{suffix}'
-                 .format(path=args.output,
-                         singer='/'.join(songs[0].singers),
+                 .format(path=path,
+                         singer=singer,
                          songname=songs[0].name,
                          suffix=best_quality.lower(),
                          )
