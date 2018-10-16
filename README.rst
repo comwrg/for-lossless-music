@@ -26,4 +26,8 @@ image
 
 下载
 
-.. image:: https://user-images.githubusercontent.com/19854253/46993571-7c676e00-d142-11e8-9fc1-84a1fba2d8cd.png
+.. image:: https://user-images.githubusercontent.com/19854253/47006312-33c2ab80-d168-11e8-848d-eecb7a217911.png
+
+自动根据目录下载
+
+.. image:: https://user-images.githubusercontent.com/19854253/47007342-93ba5180-d16a-11e8-9bea-4e719a3ca453.gif
