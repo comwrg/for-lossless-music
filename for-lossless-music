@@ -15,19 +15,32 @@ parser.add_argument(
     help='Print version'
 )
 
-parser.add_argument(
+search_grp = parser.add_argument_group('Search options')
+search_grp.add_argument(
     '-s', '--source', metavar='source', default=None,
     help='Which source you want to search. now support: qq(QQ), kw(酷我), default source is qq'
 )
 
-parser.add_argument(
+search_grp.add_argument(
     '-p', '--page', metavar='page', type=int, default=1,
     help='What page do you what to display, default is 1'
 )
 
-parser.add_argument(
+search_grp.add_argument(
     '-n', '--num', metavar='num', type=int, default=20,
     help='How many rows are display on a page'
+)
+
+download_grp = parser.add_argument_group('Download options')
+
+download_grp.add_argument(
+    '-d', '--download', metavar='SONG ID', type=int, default=-1,
+    help='downlaod index, e.g. -d 1'
+)
+
+download_grp.add_argument(
+    '-o', '--output', metavar='OUTPUT PATH', default='.',
+    help='output path'
 )
 
 parser.add_argument('keyword', nargs='+', help=argparse.SUPPRESS)
@@ -41,7 +54,27 @@ if len(args.keyword) > 1:
     print("Too many keywords")
     sys.exit()
 
-total, songs = flm.Moresound.search(args.keyword[0], args.source, args.page, args.num)
-table = flm.songs2table(songs)
-print('total', total)
-print(table)
+if args.download is -1:
+    total, songs = flm.Moresound.search(args.keyword[0], args.source, args.page, args.num)
+    table = flm.songs2table(songs)
+    print('total', total)
+    print(table)
+else:
+    total, songs = flm.Moresound.search(args.keyword[0], args.source, args.download, 1)
+    if not len(songs):
+        print('Could not find')
+        sys.exit()
+    print(flm.songs2table(songs))
+    urls = flm.Moresound.get_download_urls(songs[0])
+    best_quality = flm.find_best_quality(urls)
+    if not best_quality:
+        print('Could not find')
+        sys.exit()
+    flm.download(urls[best_quality],
+                 '{path}/{singer}-{songname}.{suffix}'
+                 .format(path=args.output,
+                         singer='/'.join(songs[0].singers),
+                         songname=songs[0].name,
+                         suffix=best_quality.lower(),
+                         )
+                 )

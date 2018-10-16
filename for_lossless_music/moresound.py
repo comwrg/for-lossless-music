@@ -57,24 +57,31 @@ class Moresound:
             album = ls[-1]
             interval = e['interval']
             singer = [s['name'] for s in e['singer']]
-            token = e['albummid']
+            token = e['songmid']
 
             res.append(Song(id_base+id, songname, singer, album, interval, tags, source, token))
 
         return totalnum, res
 
     @staticmethod
-    def get_download_url(song):
-        r = requests.session().post(
-            'http://moresound.tk/music/api.php?search=' + song.source.value,
+    def get_download_urls(song):
+        r = requests.post(
+            'http://moresound.tk/music/api.php?get_song=' + song.source.value,
             'mid={mid}'.format(mid=song.token),
             headers=headers,
             )
         json = r.json()
-        return json['url']
-
-
-
+        urls = {}
+        for k, v in json['url'].items():
+            r = requests.post(
+                'http://moresound.tk/music/' + v,
+                headers=headers,
+            )
+            try:
+                urls[k] = r.json()['url']
+            except:
+                pass
+        return urls
 
 
 
