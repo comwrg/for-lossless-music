@@ -23,18 +23,17 @@ def songs2table(songs):
     return t
 
 class FoundSong:
-    def __init__(self, origin_name, origin_singer, song=None):
+    def __init__(self, origin_name, origin_singer, song=None, status='ERROR'):
         self.origin_name = origin_name
         self.origin_singer = origin_singer
         self.song = song
+        self.status = status
 
 def foundsong2table(foundsongs, idx=None):
-    t = PrettyTable(['ID', '歌名', '歌手', '专辑', '长度', '标签'])
+    t = PrettyTable(['ID', '歌名', '歌手', '专辑', '长度', '标签', '状态'])
     for i, e in enumerate(foundsongs):
-        if not idx:
-            idx = i + 1
         if e.song:
-            t.add_row([idx, e.origin_name, e.origin_singer, e.song.album, e.song.interval, ','.join(e.song.tags)])
+            t.add_row([idx, e.origin_name, e.origin_singer, e.song.album, e.song.interval, ','.join(e.song.tags), e.status])
         else:
-            t.add_row([idx, e.origin_name, e.origin_singer, 'NOT FOUND', 'NOT FOUND', 'NOT FOUND'])
+            t.add_row([idx, e.origin_name, e.origin_singer, ' - ', ' - ', ' - ', e.status])
     return t

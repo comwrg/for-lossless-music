@@ -71,6 +71,12 @@ keyword = args.keyword[0]
 if os.path.exists(keyword):
     input_path = os.path.abspath(keyword)
     found_songs = []
+
+    def set_and_output_status(status):
+        found_song.status = status
+        found_songs.append(found_song)
+        print(flm.foundsong2table([found_song], len(found_songs)))
+
     for e in os.listdir(input_path):
         fullpath = '{}/{}'.format(input_path, e)
         if not os.path.isfile(fullpath):
@@ -82,18 +88,17 @@ if os.path.exists(keyword):
             if song.name == songname and '/'.join(song.singers) == singer:
                 found_song.song = song
                 break
-        print(flm.foundsong2table([found_song], len(found_songs) + 1))
-
-        found_songs.append(found_song)
 
         if not found_song.song:
+            set_and_output_status('NOT FOUND')
             continue
 
         # start download
         urls = flm.Moresound.get_download_urls(found_song.song)
         best_quality = flm.find_best_quality(urls)
         if not best_quality:
-            print('Could not find')
+            set_and_output_status('NOT FOUND')
+            continue
 
         output_path = os.path.abspath(args.output)
         if args.classify:
@@ -107,9 +112,11 @@ if os.path.exists(keyword):
                     )
 
         if os.path.isfile(output_path):
-            print('File EXISTS, SKIP')
+            set_and_output_status('FOUND | Local file EXISTS, SKIP')
             continue
         flm.download(urls[best_quality], output_path)
+
+        set_and_output_status('FOUND | DOWNLOAD SUCCESS')
         # end download
     print()
     print(flm.foundsong2table(found_songs))
