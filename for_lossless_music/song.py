@@ -33,7 +33,7 @@ def foundsong2table(foundsongs, idx=None):
     t = PrettyTable(['ID', '歌名', '歌手', '专辑', '长度', '标签', '状态'])
     for i, e in enumerate(foundsongs):
         if e.song:
-            t.add_row([idx, e.origin_name, e.origin_singer, e.song.album, e.song.interval, ','.join(e.song.tags), e.status])
+            t.add_row([idx if idx else i+1, e.origin_name, e.origin_singer, e.song.album, e.song.interval, ','.join(e.song.tags), e.status])
         else:
-            t.add_row([idx, e.origin_name, e.origin_singer, ' - ', ' - ', ' - ', e.status])
+            t.add_row([idx if idx else i+1, e.origin_name, e.origin_singer, ' - ', ' - ', ' - ', e.status])
     return t
