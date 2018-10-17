@@ -78,46 +78,49 @@ if os.path.exists(keyword):
         print(flm.foundsong2table([found_song], len(found_songs)))
 
     for e in os.listdir(input_path):
-        fullpath = '{}/{}'.format(input_path, e)
-        if not os.path.isfile(fullpath):
-            continue
-        singer, songname = e[:e.rfind('.')].split('-')
-        found_song = flm.FoundSong(songname, singer)
-        total, songs = flm.Moresound.search(songname, source)
-        for song in songs:
-            if song.name == songname and '/'.join(song.singers) == singer:
-                found_song.song = song
-                break
+        try:
+            fullpath = '{}/{}'.format(input_path, e)
+            if not os.path.isfile(fullpath):
+                continue
+            singer, songname = e[:e.rfind('.')].split('-')
+            found_song = flm.FoundSong(songname, singer)
+            total, songs = flm.Moresound.search(songname, source)
+            for song in songs:
+                if song.name == songname and '/'.join(song.singers) == singer:
+                    found_song.song = song
+                    break
 
-        if not found_song.song:
-            set_and_output_status('NOT FOUND')
-            continue
+            if not found_song.song:
+                set_and_output_status('NOT FOUND')
+                continue
 
-        # start download
-        urls = flm.Moresound.get_download_urls(found_song.song)
-        best_quality = flm.find_best_quality(urls)
-        if not best_quality:
-            set_and_output_status('NOT FOUND')
-            continue
+            # start download
+            urls = flm.Moresound.get_download_urls(found_song.song)
+            best_quality = flm.find_best_quality(urls)
+            if not best_quality:
+                set_and_output_status('NOT FOUND')
+                continue
 
-        output_path = os.path.abspath(args.output)
-        if args.classify:
-            output_path += '/' + found_song.origin_singer
-        os.makedirs(output_path, exist_ok=True)
-        output_path = '{path}/{singer}-{songname}.{suffix}' \
-            .format(path=output_path,
-                    singer=found_song.origin_singer,
-                    songname=found_song.origin_name,
-                    suffix=best_quality.lower(),
-                    )
+            output_path = os.path.abspath(args.output)
+            if args.classify:
+                output_path += '/' + found_song.origin_singer
+            os.makedirs(output_path, exist_ok=True)
+            output_path = '{path}/{singer}-{songname}.{suffix}' \
+                .format(path=output_path,
+                        singer=found_song.origin_singer,
+                        songname=found_song.origin_name,
+                        suffix=best_quality.lower(),
+                        )
 
-        if os.path.isfile(output_path):
-            set_and_output_status('FOUND | Local file EXISTS, SKIP')
-            continue
-        flm.download(urls[best_quality], output_path)
+            if os.path.isfile(output_path):
+                set_and_output_status('FOUND | Local file EXISTS, SKIP')
+                continue
+            flm.download(urls[best_quality], output_path)
 
-        set_and_output_status('FOUND | DOWNLOAD SUCCESS')
-        # end download
+            set_and_output_status('FOUND | DOWNLOAD SUCCESS')
+            # end download
+        except Exception as ex:
+            set_and_output_status('ERROR ' + str(ex.args))
     print()
     print(flm.foundsong2table(found_songs))
 
