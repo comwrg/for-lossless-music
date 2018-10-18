@@ -11,6 +11,21 @@ feature
 - 可以根据QQ加密格式目录下载相同歌名
 - 可以自动根据歌手名分文件存储
 
+usage
+-----
+1. 克隆这个项目并进入项目的根目录
+#. *chmod +x for-lossess-music* 加入运行权限
+#. *./for-lossless-music -h* 查看具体使用方法
+
+example
+^^^^^^^
+::
+
+./for-lossless-music 人质 #搜索歌曲人质
+./for-lossless-music 人质 -d 1 -o ~/Downloads #下载搜索人质id=1的歌曲到～/Downloads目录
+./for-lossless-music 人质 -d 1 -o ~/Downloads -c # 同上但是会下载到自动创建歌手文件夹中
+
+
 plan
 ----
 预期从 http://moresound.tk 下载， 此网站是可以手动下载的，
