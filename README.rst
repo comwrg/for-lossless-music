@@ -1,6 +1,8 @@
 for-lossless-music
 ===================
 
+|PyPI version|
+
 创建这个项目是觉得每次找无损音乐太烦了， 还浪费时间，
 开了个QQ绿钻， 结果有一些歌曲下载的还是加密格式。
 
@@ -11,19 +13,20 @@ feature
 - 可以根据QQ加密格式目录下载相同歌名
 - 可以自动根据歌手名分文件存储
 
-usage
------
-1. 克隆这个项目并进入项目的根目录
-#. *chmod +x for-lossess-music* 加入运行权限
-#. *./for-lossless-music -h* 查看具体使用方法
-
-example
-^^^^^^^
+install
+-------
 ::
 
-./for-lossless-music 人质 #搜索歌曲人质
-./for-lossless-music 人质 -d 1 -o ~/Downloads #下载搜索人质id=1的歌曲到～/Downloads目录
-./for-lossless-music 人质 -d 1 -o ~/Downloads -c # 同上但是会下载到自动创建歌手文件夹中
+   pip3 install for-lossless-music
+
+
+usage example
+^^^^^^^^^^^^^
+::
+
+   for-lossless-music 人质 #搜索歌曲人质
+   for-lossless-music 人质 -d 1 -o ~/Downloads #下载搜索人质id=1的歌曲到～/Downloads目录
+   for-lossless-music 人质 -d 1 -o ~/Downloads -c # 同上但是会下载到自动创建歌手文件夹中
 
 
 plan
@@ -54,3 +57,6 @@ image
 自动根据目录下载
 
 .. image:: https://user-images.githubusercontent.com/19854253/47007342-93ba5180-d16a-11e8-9bea-4e719a3ca453.gif
+
+
+.. |PyPI version| image:: https://badge.fury.io/py/for-lossless-music.png
