@@ -12,6 +12,7 @@ feature
 - 可以下载
 - 可以根据QQ加密格式目录下载相同歌名
 - 可以自动根据歌手名分文件存储
+- 加入pypi
 
 install
 -------
@@ -41,7 +42,6 @@ TODO
 - 可以根据一定的规则来过滤搜索
 - 同时搜索几个来源，合并成一起显示
 - 搜索后并不退出，可以不断的搜索并下载
-- 加入pypi
 - 可以从歌单下载歌曲（预计先支持QQ， 后期加入网易）
 
 image
@@ -59,4 +59,5 @@ image
 .. image:: https://user-images.githubusercontent.com/19854253/47007342-93ba5180-d16a-11e8-9bea-4e719a3ca453.gif
 
 
-.. |PyPI version| image:: https://badge.fury.io/py/for-lossless-music.png
+.. |PyPI version| image:: https://img.shields.io/pypi/v/for-lossless-music.svg
+   :target: https://pypi.org/project/for-lossless-music/
