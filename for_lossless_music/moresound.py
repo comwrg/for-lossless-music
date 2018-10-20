@@ -69,7 +69,7 @@ class Moresound:
 
             res.append(Song(id_base+id, songname, singer, album, interval, tags, source, token))
 
-        return totalnum, res
+        return totalnum, res[:num]
 
     @staticmethod
     def get_download_urls(song):
