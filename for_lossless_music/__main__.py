@@ -144,7 +144,7 @@ def main(**kwargs):
         if not best_quality:
             print('Could not find')
             sys.exit()
-        singer = '/'.join(songs[0].singers)
+        singer = ','.join(songs[0].singers)
         input_path = os.path.abspath(args.output)
         if args.classify:
             input_path += '/' + singer
