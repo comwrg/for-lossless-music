@@ -11,11 +11,17 @@ def main(**kwargs):
         prog='for-lossless-music',
         usage='for-lossless-music [OPTION]... Keyword | QQ music encryption directory',
         description='For lossless music!',
+        add_help=False,
     )
 
     parser.add_argument(
         '-V', '--version', action='store_true',
         help='Print version'
+    )
+
+    parser.add_argument(
+        '-h', '--help', action='store_true',
+        help='Print help message'
     )
 
     search_grp = parser.add_argument_group('Search options')
@@ -58,6 +64,13 @@ def main(**kwargs):
     if args.version:
         print('for-lossless-music v{}'.format(flm.__version__))
         sys.exit()
+
+    if args.help:
+        parser.print_help()
+        print('\n\nReport bug or some ideas:'
+              '\nhttps://github.com/comwrg/for-lossless-music/issues')
+        sys.exit()
+
 
     if len(args.keyword) < 1:
         parser.print_usage()
