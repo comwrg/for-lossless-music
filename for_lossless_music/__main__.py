@@ -56,7 +56,7 @@ def main(**kwargs):
     args = parser.parse_args()
 
     if args.version:
-        print(flm.__version__)
+        print('for-lossless-music v{}'.format(flm.__version__))
         sys.exit()
 
     if len(args.keyword) < 1:
