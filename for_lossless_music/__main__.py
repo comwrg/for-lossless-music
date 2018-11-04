@@ -51,12 +51,17 @@ def main(**kwargs):
         help='Classify by singer'
     )
 
-    parser.add_argument('keyword', nargs='+', help=argparse.SUPPRESS)
+    parser.add_argument('keyword', nargs='*', help=argparse.SUPPRESS)
 
     args = parser.parse_args()
 
     if args.version:
         print(flm.__version__)
+        sys.exit()
+
+    if len(args.keyword) < 1:
+        parser.print_usage()
+        sys.exit()
 
     if len(args.keyword) > 1:
         print("Too many keywords")
