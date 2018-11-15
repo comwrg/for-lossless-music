@@ -104,7 +104,7 @@ def main(**kwargs):
                     continue
                 singer, songname = e[:e.rfind('.')].split('-')
                 found_song = flm.FoundSong(songname, singer)
-                total, songs = flm.Moresound.search(songname, source)
+                total, songs = flm.search(songname, source)
                 for song in songs:
                     if song.name == songname and '/'.join(song.singers) == singer:
                         found_song.song = song
@@ -115,7 +115,7 @@ def main(**kwargs):
                     continue
 
                 # start download
-                urls = flm.Moresound.get_download_urls(found_song.song)
+                urls = flm.get_download_urls(found_song.song)
                 best_quality = flm.find_best_quality(urls)
                 if not best_quality:
                     set_and_output_status('NOT FOUND')
@@ -129,7 +129,7 @@ def main(**kwargs):
                     .format(path=output_path,
                             singer=found_song.origin_singer,
                             songname=found_song.origin_name,
-                            suffix=best_quality.lower(),
+                            suffix=flm.get_suffix_by_quality(best_quality),
                             )
 
                 if os.path.isfile(output_path):
@@ -146,18 +146,18 @@ def main(**kwargs):
 
     # if args.index not be input, this mean that mode is search
     elif args.index is -1:
-        total, songs = flm.Moresound.search(keyword, source, args.page, args.num)
+        total, songs = flm.search(keyword, source, args.page, args.num)
         table = flm.songs2table(songs)
         print('total', total)
         print(table)
     # args.index be set, mean mode is download
     else:
-        total, songs = flm.Moresound.search(keyword, source, args.index, 1)
+        total, songs = flm.search(keyword, source, args.index, 1)
         if not len(songs):
             print('Could not find')
             sys.exit()
         print(flm.songs2table(songs))
-        urls = flm.Moresound.get_download_urls(songs[0])
+        urls = flm.get_download_urls(songs[0])
         best_quality = flm.find_best_quality(urls)
         if not best_quality:
             print('Could not find')
@@ -172,6 +172,6 @@ def main(**kwargs):
                      .format(path=input_path,
                              singer=singer,
                              songname=songs[0].name,
-                             suffix=best_quality.lower(),
+                             suffix=flm.get_suffix_by_quality(best_quality),
                              )
                      )
