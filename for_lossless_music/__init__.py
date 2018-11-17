@@ -6,7 +6,7 @@ from .qqmusic import QQMusic
 from .song import Song
 from .quality import *
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 
 
 def search(keyword, source: Source, page=1, num=20):

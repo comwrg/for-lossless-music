@@ -85,7 +85,7 @@ class QQMusic:
         for t in song.tags:
             if t in size:
                 ret[t] = ('http://streamoc.music.tc.qq.com/{token}.{suffix}?'
-                          'vkey=FE178EBB4D55DCF868B4759ADD7A8ACBEFAF88B6558162E8E8DA5A01DFCFB93CEDE02918C068E105E3A3E99267DFF1DCB94B4E8745ABFDD2&guid=MS&uin=123456&fromtag=8'
+                          'vkey=7CE8513AF0A7C4C4C7020842487CCDB8E19CEF7CF82724BD826116EF539E31237D441DCE78E3088CD41DF24B87E23357B21D1D9CBC2472B5&guid=MS&uin=123456&fromtag=8'
                           .format(token=size[t] + song.token, suffix=get_suffix_by_quality(t)))
         return ret
 
