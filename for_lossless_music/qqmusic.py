@@ -3,6 +3,7 @@ import urllib.parse
 from .song import Song
 from .source import *
 from .quality import *
+from .moresound import get_vkey
 
 
 def sec2humantime(sec):
@@ -85,7 +86,7 @@ class QQMusic:
         for t in song.tags:
             if t in size:
                 ret[t] = ('http://streamoc.music.tc.qq.com/{token}.{suffix}?'
-                          'vkey=7CE8513AF0A7C4C4C7020842487CCDB8E19CEF7CF82724BD826116EF539E31237D441DCE78E3088CD41DF24B87E23357B21D1D9CBC2472B5&guid=MS&uin=123456&fromtag=8'
-                          .format(token=size[t] + song.token, suffix=get_suffix_by_quality(t)))
+                          'vkey={vkey}&guid=MS&uin=123456&fromtag=8'
+                          .format(token=size[t] + song.token, suffix=get_suffix_by_quality(t), vkey=get_vkey()))
         return ret
 

@@ -79,4 +79,11 @@ class Moresound:
         return urls
 
 
+def get_vkey():
+    r = requests.get(
+        'http://moresound.tk/music/api.php?download=qq&004VcLEa1u2n3n/0=16c67d98bb9395fcfd239896652b0288&MS=004VcLEa1u2n3n',
+        headers=headers,
+    )
 
+    url = r.json()['url']
+    return url[61:61+112]
