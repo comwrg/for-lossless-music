@@ -7,7 +7,10 @@ install:
 	$(SETUP) install --user
 
 release: clean
+	-git tag v$(shell make | grep -o '\d\.\d\.\d') && git push --tags
 	$(SETUP) sdist bdist_wheel upload --sign
+	@echo "\n\n\n"
+	@git log --oneline --no-decorate --graph $(shell git tag --sort=-creatordate | sed -n '2p')..$(shell git tag --sort=-creatordate | sed -n '1p') | cat
 
 clean:
 	-rm -r build/ dist/ *.egg-info/
