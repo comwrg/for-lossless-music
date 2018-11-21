@@ -1,3 +1,4 @@
+import html
 import requests
 import urllib.parse
 from .song import Song
@@ -59,9 +60,9 @@ class QQMusic:
                     tags.append(size[k])
             ###
             ret.append(Song(id=num*(page-1) + i+1,
-                            name=e['songname'],
-                            singers=[s['name'] for s in e['singer']],
-                            album=e['albumname'],
+                            name=html.unescape(e['songname']),
+                            singers=[html.unescape(s['name']) for s in e['singer']],
+                            album=html.unescape(e['albumname']),
                             interval=sec2humantime(e['interval']),
                             tags=tags,
                             source=Source.QQ,
